@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- 导入bookstrap的css文件 -->
+    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -31,9 +33,30 @@
 
     </div>
 
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">温馨提示:</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
+
 <script src="./js/jquery-1.12.4.min.js"></script>
+<!--导入bootstrap的js文件 -->
+<script src="./js/bootstrap/js/bootstrap.min.js"></script>
+
+
 <script>
 
     $(function () {
@@ -49,7 +72,13 @@
             // 如果输入为空 提示
             if (userName == "" || password == "") {
 
-                alert('账号或密码为空,请输入完整!');
+                // alert('账号或密码为空,请输入完整!');
+                $('.modal-body').text('账号或密码为空,请输入完整!');
+                $('#myModal').modal({
+
+                    keyboard: true
+
+                })
 
                 return;//就不再执行后面的账号密码判断了,不会弹出框两次 
             }
@@ -62,13 +91,19 @@
                 },
                 success: function (res) {
 
-                    if(res.code==200){
+                    if (res.code == 200) {
 
                         location.href = 'index.html';
 
-                    }else{
+                    } else {
 
-                        alert(res.msg);
+                        // alert(res.msg);
+                        $('.modal-body').text('账号或密码有误,请重新输入');
+                        $('#myModal').modal({
+
+                            keyboard: true
+
+                        })
                     }
 
                 }
