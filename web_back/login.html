@@ -29,8 +29,53 @@
             </form>
         </div>
 
-    </div> 
+    </div>
 
 </body>
+
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script>
+
+    $(function () {
+
+        $('.input_sub').click(function (e) {
+
+            e.preventDefault();
+
+            var userName = $('.input_txt').val().trim();
+
+            var password = $('.input_pass').val().trim();
+
+            // 如果输入为空 提示
+            if (userName == "" || password == "") {
+
+                alert('账号或密码为空,请输入完整!');
+
+                return;//就不再执行后面的账号密码判断了,不会弹出框两次 
+            }
+
+            $.post({
+                url: 'http://localhost:8000/admin/login',
+                data: {
+                    user_name: userName,
+                    password: password
+                },
+                success: function (res) {
+
+                    if(res.code==200){
+
+                        location.href = 'index.html';
+
+                    }else{
+
+                        alert(res.msg);
+                    }
+
+                }
+
+            })
+        })
+    });
+</script>
 
 </html>
